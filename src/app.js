@@ -26,7 +26,7 @@ app.use(helmet())
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 app.use(loadUserData)
-app.use("/exeFiles",redirectIfLoggedOut("/"));
+//app.use("/exeFiles",redirectIfLoggedOut("/"));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(router)
 
