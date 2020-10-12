@@ -2,11 +2,11 @@ const locations = require("./routes/locations");
 const home = require("./routes/home");
 const goals = require("./routes/goals");
 const login = require("./routes/login");
-const logout = require("./routes/logout");
 const resetPassword = require("./routes/resetPassword");
 const changePassword = require("./routes/changePassword");
 const alerts = require("./routes/alerts");
 const homeMenu = require("./routes/homeMenu");
+
 const {
   redirectIfLoggedIn,
   redirectIfLoggedOut,
@@ -30,6 +30,7 @@ router.all(["/login", "/resetPassword"], redirectIfLoggedIn("/"));
 
 //routes that require the user to be logged out -----------------------
 router.route("/login").get(login.get).post(login.post);
+router.get("/isLoggedIn", login.isLoggedIn)
 
 router.route("/resetPassword").post(resetPassword.post);
 
@@ -43,7 +44,7 @@ router
 
 router.route("/goals").get(goals.get).post(goals.post);
 
-router.get("/logout", logout.get);
+router.get("/logout", login.logOut);
 
 router.get("/alerts", alerts.get);
 router.post("/alerts", alerts.add);
