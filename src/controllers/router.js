@@ -17,7 +17,7 @@ const apiResponse = require("../models/apiResponse");
 router.all(
   [
     "/",
-    "/changePassword",
+    /^\/changePassword.*/i,
     /^\/alerts.*/,
     /^\/homeMenu.*/,
     /^\/goals.*/,
