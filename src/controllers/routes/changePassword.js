@@ -13,12 +13,16 @@ exports.post = (req, res) => {
     const confirmPassword = req.body.confirmPassword
     console.log(password);
     if (password !== confirmPassword)
-       return apiResponse(res,{message: "Passwords not match",code:500});
-       
- 
+    return apiResponse(res,{message: "Passwords not match",code:500});
+    
+    
+    let idToken='d';
        const sessionCookie = req.cookies.session || '';
        admin.auth().verifySessionCookie(
            sessionCookie, true)
+        .then((decodedClaims) => {
+            serveContentForUser('/profile', req, res, decodedClaims);
+          })
         
         .then(user=> firebase.auth().onAuthStateChanged(user=> {
             if (user) {
@@ -28,28 +32,29 @@ exports.post = (req, res) => {
         }))
         
         // .then(user =>firebase.auth().currentUser.getIdToken(user,true))
-       .then(idToken => 
-        //admin.auth???
-           admin.auth.updateUser(idToken,{password:'newPassword2'}))
-       .then(newPassword =>
-           setPassword(newPassword))
-       .then(() => 
-           apiResponse(res,{message:"updated successfully"}))  
-       .catch(({message}) => apiResponse(res,{message,code:500}))};
+           .then(idToken => 
+           admin.auth().updateUser(idToken,{password:'newPassword'}))
+        .then(newPassword =>
+            setPassword(newPassword))
+            .then(() => 
+            apiResponse(res,{message:"updated successfully"}))  
+            .catch(({message}) => apiResponse(res,{message,code:500}))};
             
-
-//     firebase.auth().updateUser(uid,{password: 'newPassword'})
-//         .then(userRecord => 
-//             console.log("updated successfully", userRecord.toJSON())
-//     )
-//     .then(() => apiResponse(res,{message:"successfuly"}))
-//         .catch(e => res.render("changePassword", {
-//             error: e.message,
-//         }))
-// }
-
-
-
+            
+            //     firebase.auth().updateUser(uid,{password: 'newPassword'})
+            //         .then(userRecord => 
+            //             console.log("updated successfully", userRecord.toJSON())
+            //     )
+            //     .then(() => apiResponse(res,{message:"successfuly"}))
+            //         .catch(e => res.render("changePassword", {
+                //             error: e.message,
+                //         }))
+                // }
+                
+                
+                // .then(uid => admin.auth().getUser(uid,'dsasda'))
+                // .then(uid => admin.auth().updateUser(uid,{password:''}))
+                
 // exports.post = (req, res) => {
 //     const { password, confirmPassword } = req.body;
 //     if (password !== confirmPassword)
