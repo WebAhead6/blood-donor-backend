@@ -14,64 +14,17 @@ exports.post = (req, res) => {
     console.log(password);
     if (password !== confirmPassword)
     return apiResponse(res,{message: "Passwords not match",code:500});
-    
-    
-    let idToken='d';
-       const sessionCookie = req.cookies.session || '';
-       admin.auth().verifySessionCookie(
-           sessionCookie, true)
+    // let idToken;
+    const sessionCookie = req.cookies.session || '';
+    admin.auth().verifySessionCookie(
+        sessionCookie, true)
         .then((decodedClaims) => {
-            serveContentForUser('/profile', req, res, decodedClaims);
-          })
-        
-        .then(user=> firebase.auth().onAuthStateChanged(user=> {
-            if (user) {
-                return user.getIdToken()
-            }
-            return null;
-        }))
-        
-        // .then(user =>firebase.auth().currentUser.getIdToken(user,true))
-           .then(idToken => 
-           admin.auth().updateUser(idToken,{password:'newPassword'}))
-        .then(newPassword =>
-            setPassword(newPassword))
+         return admin.auth().updateUser(decodedClaims.uid,{
+             password
+         }) 
+        })
+
             .then(() => 
             apiResponse(res,{message:"updated successfully"}))  
             .catch(({message}) => apiResponse(res,{message,code:500}))};
             
-            
-            //     firebase.auth().updateUser(uid,{password: 'newPassword'})
-            //         .then(userRecord => 
-            //             console.log("updated successfully", userRecord.toJSON())
-            //     )
-            //     .then(() => apiResponse(res,{message:"successfuly"}))
-            //         .catch(e => res.render("changePassword", {
-                //             error: e.message,
-                //         }))
-                // }
-                
-                
-                // .then(uid => admin.auth().getUser(uid,'dsasda'))
-                // .then(uid => admin.auth().updateUser(uid,{password:''}))
-                
-// exports.post = (req, res) => {
-//     const { password, confirmPassword } = req.body;
-//     if (password !== confirmPassword)
-//         return res.render("changePassword",
-//             {
-//                 error: "passwords do not match",
-//                 selectedNavbarItem: 'changePassword'
-//             }
-//         );
-
-//     firebase.auth().currentUser.updatePassword(password)
-//         .then(() => res.render("changePassword", {
-//             message: "updated successfully",
-//             selectedNavbarItem: 'changePassword'
-//         }))
-//         .catch(e => res.render("changePassword", {
-//             error: e.message,
-//             selectedNavbarItem: 'changePassword'
-//         }))
-// }
