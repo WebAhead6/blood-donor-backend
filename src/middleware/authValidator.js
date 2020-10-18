@@ -10,7 +10,6 @@ exports.redirectIfLoggedIn = (route) => (req, res, next) => {
 
 
 exports.redirectIfLoggedOut = (route) => (req, res, next) => {
-    console.log(res.locals.signedIn);
     if (!res.locals.signedIn)
         return res.redirect(route)
     next();
