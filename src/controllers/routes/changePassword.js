@@ -1,4 +1,5 @@
-const { firebase } = require("../../database")
+const { firebase, admin } = require("../../database")
+const apiResponse = require("../../models/apiResponse")
 
 exports.get = (req, res) => {
     res.render("changePassword", {
@@ -8,22 +9,22 @@ exports.get = (req, res) => {
 }
 
 exports.post = (req, res) => {
-    const { password, confirmPassword } = req.body;
+    const  password = req.body.password;
+    const confirmPassword = req.body.confirmPassword
+    console.log(password);
     if (password !== confirmPassword)
-        return res.render("changePassword",
-            {
-                error: "passwords do not match",
-                selectedNavbarItem: 'changePassword'
-            }
-        );
+    return apiResponse(res,{message: "Passwords not match",code:500});
+    // let idToken;
+    const sessionCookie = req.cookies.session || '';
+    admin.auth().verifySessionCookie(
+        sessionCookie, true)
+        .then((decodedClaims) => {
+         return admin.auth().updateUser(decodedClaims.uid,{
+             password
+         }) 
+        })
 
-    firebase.auth().currentUser.updatePassword(password)
-        .then(() => res.render("changePassword", {
-            message: "updated successfully",
-            selectedNavbarItem: 'changePassword'
-        }))
-        .catch(e => res.render("changePassword", {
-            error: e.message,
-            selectedNavbarItem: 'changePassword'
-        }))
-}
+            .then(() => 
+            apiResponse(res,{message:"updated successfully"}))  
+            .catch(({message}) => apiResponse(res,{message,code:500}))};
+            

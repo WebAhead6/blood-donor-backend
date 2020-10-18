@@ -35,6 +35,6 @@ exports.isLoggedIn = (req,res) => {
 }
 
 exports.logOut =  (req, res) => {
-  res.clearCookie('session')
+  res.clearCookie("session")
   apiResponse(res,{message:"Logged Out"})
 }
