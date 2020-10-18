@@ -16,9 +16,29 @@ const add = async (setting) => {
     throw new Error(schema.validate(setting).error);
   return await QueriesGeneralSetting.add(setting);
 };
+
+const edit = async (id, generalSetting) => {
+  console.log(id, generalSetting);
+  if (!id) {
+    throw new Error("id should be defined");
+  }
+  if (schema.validate(generalSetting).error)
+    throw new Error(schema.validate(generalSetting).error.message);
+  return await QueriesGeneralSetting.edit(id, generalSetting);
+};
+const del = async (id) => {
+  if (!id) {
+    throw new Error("id should be defined");
+  }
+
+  return await QueriesGeneralSetting.del(id);
+};
+
 const get = QueriesGeneralSetting.get;
 
 module.exports = {
   add,
   get,
+  edit,
+  del,
 };

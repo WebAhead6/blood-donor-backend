@@ -10,6 +10,25 @@ exports.add = async (req, res) => {
     apiResponse(res, { message, code: 500 });
   }
 };
+exports.post = async ({ params: { id }, body }, res) => {
+  try {
+    await ModelsGeneralSetting.edit(id, {
+      ...body,
+    });
+    apiResponse(res, { message: " edit successfully" });
+  } catch ({ message }) {
+    apiResponse(res, { message, code: 500 });
+  }
+};
+
+exports.delete = async ({ params: { id } }, res) => {
+  try {
+    await ModelsGeneralSetting.del(id);
+    apiResponse(res, { message: " deleted successfully" });
+  } catch ({ message }) {
+    apiResponse(res, { message, code: 500 });
+  }
+};
 
 exports.getGeneralSettingApi = async (req, res) => {
   try {

@@ -60,8 +60,8 @@ router.post("/homeMenu/:id", homeMenu.post);
 router.get("/locations", locations.get);
 
 router.post("/genernalSetting", generalSetting.add);
-// router.post("/genernalSetting/delete/:id", genernalSetting.delete);
-// router.post("/genernalSetting/:id", genernalSetting.post);
+router.post("/genernalSetting/delete/:id", generalSetting.delete);
+router.post("/genernalSetting/:id", generalSetting.post);
 router.get("/api/genernalSetting", generalSetting.getGeneralSettingApi);
 
 //routes that work all the time ------------------------------------
