@@ -34,8 +34,11 @@ exports.delete = async ({ params: { id } }, res) => {
 
 exports.add = async ({ body }, res) => {
   try {
-    await ModelsHomeMenuItems.add(body);
+    //to do get to find the length of the arr
+    const data = await ModelsHomeMenuItems.get();
+    await ModelsHomeMenuItems.add({...body, order:data.length});//{...body,index}
     apiResponse(res, { message: " edit successfully" });
+
   } catch ({ message }) {
     apiResponse(res, { message, code: 500 });
   }
@@ -49,3 +52,6 @@ exports.getApi = async (req, res) => {
     apiResponse(res, { message: "server error", code: 500 });
   }
 };
+
+
+
