@@ -2,6 +2,7 @@ const QueriesHomeMenu = require('../database/home_menu_items');
 const Joi = require('@hapi/joi');
 
 const schema = Joi.object({
+    indexOrder:Joi.number(),
     title: Joi.object({
         en: Joi.string(),
         he: Joi.string(),

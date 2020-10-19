@@ -30,13 +30,23 @@ exports.delete = async ({ params: { id } }, res) => {
   } catch ({ message }) {
     apiResponse(res, { message, code: 500 });
   }
+
+
+
+
+
+
+
+
+
+
 };
 
 exports.add = async ({ body }, res) => {
   try {
     //to do get to find the length of the arr
     const data = await ModelsHomeMenuItems.get();
-    await ModelsHomeMenuItems.add({...body, order:data.length});//{...body,index}
+    await ModelsHomeMenuItems.add({...body, indexOrder:data.length});//data.length giv arr length
     apiResponse(res, { message: " edit successfully" });
 
   } catch ({ message }) {
