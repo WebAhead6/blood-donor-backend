@@ -55,3 +55,22 @@ exports.getApi = async (req, res) => {
 
 
 
+// exports.reorder = async ({ params: { draggedId,droppedId}, body }, res) => {
+//   try {
+//     const data = await ModelsHomeMenuItems.get();
+
+//     await ModelsHomeMenuItems.edit(draggedId, {
+//         ...body, order:draggedindex
+//     });
+//     await ModelsHomeMenuItems.edit(droppedId, {
+//       ...body,
+//   });
+
+
+
+
+//     apiResponse(res, { message: " edit successfully" });
+//   } catch ({ message }) {
+//     apiResponse(res, { message, code: 500 });
+//   }
+// };
