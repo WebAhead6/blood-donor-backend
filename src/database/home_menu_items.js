@@ -23,7 +23,7 @@ const del = async (id) => {
 
 
 const get = async () => {
-    const alertsRef = await db.collection('home_menu');
+    const alertsRef = await db.collection('home_menu').orderBy("order");
     const doc = await alertsRef.get();
     var result = []
     doc.forEach(doc => {
