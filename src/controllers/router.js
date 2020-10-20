@@ -49,7 +49,7 @@ router.get("/logout", login.logOut);
 
 router.get("/alerts", alerts.get);
 router.post("/alerts", alerts.add);
-router.post("/alerts/delete/:id/:orderIndex", alerts.delete);
+router.post("/alerts/delete/:id", alerts.delete);
 router.post("/alerts/:id", alerts.post);
 
 router.get("/homeMenu", homeMenu.get);
