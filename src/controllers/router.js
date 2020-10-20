@@ -55,6 +55,7 @@ router.post("/alerts/:id", alerts.post);
 router.get("/homeMenu", homeMenu.get);
 router.post("/homeMenu", homeMenu.add);
 router.post("/homeMenu/delete/:id", homeMenu.delete);
+router.post("/homeMenu/reorder", homeMenu.reorder);
 router.post("/homeMenu/:id", homeMenu.post);
 
 router.get("/locations", locations.get);
