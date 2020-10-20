@@ -16,18 +16,20 @@ const edit = async (id, data) => {
 
 
 const del = async (id) => {
-    await db.collection('home_menu').doc(id).delete()
+   await db.collection('home_menu').doc(id).delete()
     return "object deleted";
+   // return  await db.collection('home_menu').doc(id).delete()
+
 
 }
 
 
-const get = async () => {
-    const alertsRef = await db.collection('home_menu');
-    const doc = await alertsRef.get();
+const get = async (id) => {
+    const alertsRef = await db.collection('home_menu').orderBy("indexOrder");
+    const doc = await alertsRef.get(id);
     var result = []
     doc.forEach(doc => {
-        result.push({ id: doc.id, ...doc.data() })
+        result.push({ ...doc.data(), id: doc.id })
     });
     return result;
 }
