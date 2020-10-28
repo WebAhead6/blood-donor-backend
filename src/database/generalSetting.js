@@ -14,7 +14,9 @@ const del = async (id) => {
   return "object deleted";
 };
 const get = async () => {
-  const settingGeneralRef = await db.collection("generalSetting");
+  const settingGeneralRef = await db
+    .collection("generalSetting")
+    .orderBy("indexOrder");
   const doc = await settingGeneralRef.get();
   var result = [];
   doc.forEach((doc) => {

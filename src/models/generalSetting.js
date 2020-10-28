@@ -2,6 +2,7 @@ const QueriesGeneralSetting = require("../database/generalSetting");
 const Joi = require("@hapi/joi");
 
 const schema = Joi.object({
+  indexOrder: Joi.number(),
   title: Joi.object({
     en: Joi.string(),
     he: Joi.string(),
@@ -18,7 +19,6 @@ const add = async (setting) => {
 };
 
 const edit = async (id, generalSetting) => {
-  console.log(id, generalSetting);
   if (!id) {
     throw new Error("id should be defined");
   }

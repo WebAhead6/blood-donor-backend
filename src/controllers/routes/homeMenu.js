@@ -75,44 +75,6 @@ exports.reorder = async (req, res) => {
     }
     apiResponse(res, { message: " reorder successfully" });
   } catch (e) {
-    console.log(e.message);
     apiResponse(res, { message: "server error", code: 500 });
   }
 };
-
-// exports.reorder = async ({ params: { draggedId,droppedId}, body }, res) => {
-//   try {
-//     const data = await ModelsHomeMenuItems.get();
-
-//     await ModelsHomeMenuItems.edit(draggedId, {
-//         ...body, order:draggedindex
-//     });
-//     await ModelsHomeMenuItems.edit(droppedId, {
-//       ...body,
-//   });
-
-//     apiResponse(res, { message: " edit successfully" });
-//   } catch ({ message }) {
-//     apiResponse(res, { message, code: 500 });
-//   }
-// };
-
-// exports.delete = async ({ params: { id } }, res) => {
-//   try {
-//     console.log("id",id);
-//     //const data = await ModelsHomeMenuItems.get();
-//    const deleteItem = await ModelsHomeMenuItems.del(id);// after delet now we save the deleted id and sh
-// console.log(deleteItem);
-
-//     apiResponse(res, { message: " deleted successfully" });
-//   } catch ({ message }) {
-//     apiResponse(res, { message, code: 500 });
-//   }
-// };
-
-// for (let i = body.orderIndex; i < data.length; i++) {
-//   console.log("data[i].indexOrder",data[i].indexOrder);
-//   await ModelsHomeMenuItems.edit(data[i].id, {
-//     indexOrder: data[i].indexOrder-1,
-//     ...data[i]
-//   });

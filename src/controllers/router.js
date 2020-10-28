@@ -62,6 +62,7 @@ router.get("/locations", locations.get);
 
 router.post("/genernalSetting", generalSetting.add);
 router.post("/genernalSetting/delete/:id", generalSetting.delete);
+router.post("/generalSetting/reorder", generalSetting.reorder);
 router.post("/genernalSetting/:id", generalSetting.post);
 router.get("/api/genernalSetting", generalSetting.getGeneralSettingApi);
 
